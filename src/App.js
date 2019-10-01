@@ -6,14 +6,15 @@ import Notepad from "./Components/Notepad";
 // i.e. it returns whenever the store gets updated
 function mapStateToProps(state){
   return {
-    notes: state.notes
+    notes: state.notes,
+    selectedNote: state.selectedNote
   };
 }
 
 // Actions
 var createAction = "addNote";
 var deleteAction = "deleteNote";
-
+var selectAction = "selectNote";
 
 // Map actions to props
 function mapDispatchToProps(dispatch) {
@@ -21,9 +22,12 @@ function mapDispatchToProps(dispatch) {
     createNote: function(noteName, noteContent) {
       return dispatch({type: createAction, noteName, noteContent});
     },
-    deleteNote: function(noteName) {
-      return dispatch({type: deleteAction, noteName});
-    }
+    deleteNote: function(noteId) {
+      return dispatch({type: deleteAction, noteId});
+    },
+    selectNote: function(noteId) {
+      return dispatch({type: selectAction, noteId});
+    },
   };
 }
 
@@ -39,7 +43,8 @@ var connectedComponent = connect(
 <Connect>
   <Notepad createNote={createNote}
            deleteNote={deleteNote}
-           notes={notes}/>
+           notes={notes}
+           selectNote={selectNote}/>
 </Notepad>
 */
 export default connectedComponent;
